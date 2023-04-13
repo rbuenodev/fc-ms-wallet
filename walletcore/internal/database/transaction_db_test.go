@@ -37,7 +37,7 @@ func (s *TransactionDBTestSuite) SetupSuite() {
 	accountTo := entity.NewAccount(s.client2)
 	accountTo.Balance = 1000
 	s.accountTo = accountTo
-	s.transactionDB = newTransactionDB(db)
+	s.transactionDB = NewTransactionDB(db)
 }
 
 func (s *TransactionDBTestSuite) TearDownSuite() {
