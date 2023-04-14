@@ -66,5 +66,4 @@ func TestCreateTransactionUseCase_Execute(t *testing.T) {
 	mockTransaction.AssertExpectations(t)
 	mockAccount.AssertNumberOfCalls(t, "FindByID", 2)
 	mockTransaction.AssertNumberOfCalls(t, "Create", 1)
-
 }

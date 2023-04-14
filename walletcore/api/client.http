@@ -1,0 +1,27 @@
+POST http://localhost:3336/clients HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Richard Bueno",
+    "email": "richard@email.com"
+}
+
+###
+
+POST http://localhost:3336/accounts HTTP/1.1
+Content-Type: application/json
+
+{
+    "client_id": "23491165-b3dc-4c5e-a1cd-e95cccef65e7"    
+}
+
+###
+
+POST http://localhost:3336/transactions HTTP/1.1
+Content-Type: application/json
+
+{
+    "account_id_from": "4e749243-de02-4993-8b00-c9281a6d7d1e",
+    "account_id_to": "3346ab9c-7fea-4c5d-9c14-a47f3761f0a4",
+    "amount":100
+}
