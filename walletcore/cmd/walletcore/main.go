@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
 
@@ -11,6 +12,7 @@ import (
 	createclient "github.com/rbueno/fc-ms-wallet/internal/usecase/createClient"
 	createtransaction "github.com/rbueno/fc-ms-wallet/internal/usecase/createTransaction"
 	"github.com/rbueno/fc-ms-wallet/pkg/events"
+	"github.com/rbueno/fc-ms-wallet/pkg/uow"
 	"github.com/rbueno/fc-ms-wallet/web"
 	"github.com/rbueno/fc-ms-wallet/web/webserver"
 )
@@ -29,11 +31,21 @@ func main() {
 
 	clientDb := database.NewClientDB(db)
 	accountDB := database.NewAccountDB(db)
-	transactionDB := database.NewTransactionDB(db)
+
+	ctx := context.Background()
+	uow := uow.NewUow(ctx, db)
+
+	uow.Register("AccountDB", func(tx *sql.Tx) interface{} {
+		return database.NewAccountDB(db)
+	})
+
+	uow.Register("TransactionDB", func(tx *sql.Tx) interface{} {
+		return database.NewAccountDB(db)
+	})
 
 	createClientUseCase := createclient.NewCreateClientUseCase(clientDb)
 	createAccountUseCase := createaccount.NewCreateAccountUseCase(accountDB, clientDb)
-	createTransactionUseCase := createtransaction.NewCreateTransactionUseCase(transactionDB, accountDB, eventDispatcher, transactionCreatedEvent)
+	createTransactionUseCase := createtransaction.NewCreateTransactionUseCase(uow, eventDispatcher, transactionCreatedEvent)
 
 	webserver := webserver.NewWebServer(":3336")
 
