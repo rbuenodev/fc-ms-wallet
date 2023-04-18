@@ -11,7 +11,7 @@ type WebClientHandler struct {
 	CreateClientUseCase createclient.CreateClientUseCase
 }
 
-func NewClientHandler(createClientHandler createclient.CreateClientUseCase) *WebClientHandler {
+func NewWebClientHandler(createClientHandler createclient.CreateClientUseCase) *WebClientHandler {
 	return &WebClientHandler{
 		CreateClientUseCase: createClientHandler,
 	}
