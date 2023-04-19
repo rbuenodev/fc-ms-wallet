@@ -15,4 +15,7 @@
 3: execute the following:
 `go run main.go `
 
+
+### To see the topics on confluence just use the following link:
+`localhost:9021`
  
