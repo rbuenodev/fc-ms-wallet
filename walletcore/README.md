@@ -10,7 +10,7 @@
 ### To execute the project do the following steps:
 1: access the container of the main app:
 `docker-compose exec goapp bash`
-2: open the dir with the main.go file
+2: open the dir with the main.go file (cd cmd/walletcore)
 `cd cmd/walletcore `
 3: execute the following:
 `go run main.go `
